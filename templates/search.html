@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Students</title>
+</head>
+<body>
+    <h1>Search Students</h1>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    {% if students %}
+        <h2>Results</h2>
+        <ul>
+            {% for student in students %}
+                <li>{{ student.first_name }} - {{ student.phone }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
