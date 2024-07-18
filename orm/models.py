@@ -2,19 +2,20 @@ from django.db import models
 from django import forms
 from .forms import StudentSearchForm
 from django.shortcuts import render
-def search_students(request):
-    form = StudentSearchForm()
-    students = None
-    if 'query' in request.GET:
-        form = StudentSearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            students = Student.objects.filter(first_name__icontains=query)
-    return render(request, 'search.html', {'form': form, 'students': students})
 
 
 class StudentSearchForm(forms.Form):
     query = forms.CharField(label='Search', max_length=100)
+
+    def search_students(request):
+        form = StudentSearchForm()
+        students = None
+        if 'query' in request.GET:
+            form = StudentSearchForm(request.GET)
+            if form.is_valid():
+                query = form.cleaned_data['query']
+                students = Student.objects.filter(first_name__icontains=query)
+        return render(request, 'search.html', {'form': form, 'students': students})
 
 
 class Region(models.Model):
